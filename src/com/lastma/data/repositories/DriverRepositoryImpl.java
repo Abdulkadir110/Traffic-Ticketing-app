@@ -7,6 +7,7 @@ import java.util.List;
 
 public class DriverRepositoryImpl implements DriverRepository{
     private int count;
+    private int idcount;
     private List<Driver> drivers = new ArrayList<>();
     @Override
     public long count() {
@@ -16,8 +17,9 @@ public class DriverRepositoryImpl implements DriverRepository{
     @Override
     public Driver save(Driver driver) {
         validate(driver);
-        driver.setId(++count);
+        driver.setId(++idcount);
         drivers.add(driver);
+        count++;
         return driver;
     }
 
@@ -30,8 +32,11 @@ public class DriverRepositoryImpl implements DriverRepository{
     public Driver update(Driver driver) {
         validate(driver);
         Driver foundDriver = findDriver(driver);
-        foundDriver = driver;
-        return foundDriver;
+        if (foundDriver != null) {
+            drivers.set(drivers.indexOf(driver), driver);
+            return driver;
+        }
+        return null;
     }
 
     @Override
