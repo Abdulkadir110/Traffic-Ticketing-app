@@ -3,7 +3,7 @@ package com.lastma.data.models;
 public class Officer {
     private String fullName;
     private String email;
-    private String id;
+    private int id;
 
     public String getFullName() {
         return fullName;
@@ -21,11 +21,11 @@ public class Officer {
         this.email = email;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 }
