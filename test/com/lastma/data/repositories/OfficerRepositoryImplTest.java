@@ -43,4 +43,14 @@ class OfficerRepositoryImplTest {
         officerRepositoryImpl.deleteById(1);
         assertEquals(1L, officerRepositoryImpl.count());
     }
+    @Test
+    public void saveTwoOfficers_deleteOfficerEntity(){
+        officer.setFullName("John Doe");
+        officerRepositoryImpl.save(officer);
+        Officer officer2 = new Officer();
+        officer2.setFullName("John James");
+        officerRepositoryImpl.save(officer2);
+        officerRepositoryImpl.delete(officer);
+        assertEquals(1L, officerRepositoryImpl.count());
+    }
 }

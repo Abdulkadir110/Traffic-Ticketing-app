@@ -10,5 +10,6 @@ public interface OfficerRepository {
     Officer findById(int id);
 
     void deleteById(int id);
+    void delete(Officer officer);
 }
 

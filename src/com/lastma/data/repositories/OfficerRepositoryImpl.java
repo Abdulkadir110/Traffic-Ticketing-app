@@ -41,4 +41,22 @@ public class OfficerRepositoryImpl implements OfficerRepository {
             count--;
         }
     }
+
+    @Override
+    public void delete(Officer officer) {
+        Officer foundOfficer = findOfficer(officer);
+        if(foundOfficer != null){
+            officers.remove(foundOfficer);
+            count--;
+        }
+    }
+    private Officer findOfficer(Officer officer) {
+        if(officer == null)return null;
+        for(Officer foundOfficer : officers){
+            if(foundOfficer.equals(officer)){
+                return foundOfficer;
+            }
+        }
+        return null;
+    }
 }
