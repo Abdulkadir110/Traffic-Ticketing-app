@@ -3,17 +3,17 @@ package com.lastma.data.models;
 import java.util.Date;
 
 public class Ticket {
-    private String id;
+    private int id;
     private ViolationType type;
-    private int violationFee;
+    private double violationFee;
     private Date issuedDate;
     private Date dueDate;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -25,7 +25,7 @@ public class Ticket {
         this.type = type;
     }
 
-    public int getViolationFee() {
+    public double getViolationFee() {
         return violationFee;
     }
 
