@@ -20,4 +20,20 @@ public class VehicleRepositoryImplTest {
         vehicleRepository.save(vehicle);
         assertEquals(1L,vehicleRepository.count());
     }
+    @Test
+    public void saveTwoVehicles_countIsTwo(){
+        Vehicle vehicle = new Vehicle();
+        vehicleRepository.save(vehicle);
+        Vehicle vehicle2 = new Vehicle();
+        vehicleRepository.save(vehicle2);
+        assertEquals(2L,vehicleRepository.count());
+    }
+    @Test
+    public void saveSameVehiclesTwice_countIsOne(){
+        Vehicle vehicle = new Vehicle();
+        vehicleRepository.save(vehicle);
+        assertEquals(1L,vehicleRepository.count());
+        vehicleRepository.save(vehicle);
+        assertEquals(1L,vehicleRepository.count());
+    }
 }

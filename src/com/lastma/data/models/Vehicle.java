@@ -7,6 +7,7 @@ public class Vehicle {
     private String model;
     private VehicleType type;
     private Year year;
+    private String carPlateNumber;
 
     public String getBrand() {
         return brand;
@@ -38,5 +39,13 @@ public class Vehicle {
 
     public void setYear(Year year) {
         this.year = year;
+    }
+
+    public String getCarPlateNumber() {
+        return carPlateNumber;
+    }
+
+    public void setCarPlateNumber(String carPlateNumber) {
+        this.carPlateNumber = carPlateNumber;
     }
 }

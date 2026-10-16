@@ -20,4 +20,13 @@ public class VehicleRepositoryImpl implements VehicleRepository {
         numberOfVehicles++;
         return vehicle;
     }
+
+    @Override
+    public Vehicle findById(int id) {
+        for (Vehicle vehicle : vehicles) {
+            if()
+        }
+        return null;
+    }
+
 }
