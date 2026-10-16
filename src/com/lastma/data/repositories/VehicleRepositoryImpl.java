@@ -23,9 +23,6 @@ public class VehicleRepositoryImpl implements VehicleRepository {
 
     @Override
     public Vehicle findById(int id) {
-        for (Vehicle vehicle : vehicles) {
-            if()
-        }
         return null;
     }
 
