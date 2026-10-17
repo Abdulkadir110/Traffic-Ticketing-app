@@ -8,6 +8,7 @@ public class Driver {
     private String fullName;
     private String email;
     private String carPlateNumber;
+    private String password;
     private List<Ticket> tickets = new ArrayList<>();
 
     public int getId() {
@@ -52,5 +53,13 @@ public class Driver {
 
     public void setTickets(Ticket tickets) {
         this.tickets.add(tickets);
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

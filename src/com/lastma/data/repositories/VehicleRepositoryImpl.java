@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VehicleRepositoryImpl implements VehicleRepository {
-    private List<Vehicle> vehicles = new ArrayList<>();
+    private static List<Vehicle> vehicles = new ArrayList<>();
 
     @Override
     public long count() {
