@@ -23,8 +23,10 @@ public class VehicleRepositoryImplTest {
     }
     @Test
     public void saveTwoVehicles_countIsTwo(){
+        vehicle.setCarPlateNumber("LRB2494YH");
         vehicleRepository.save(vehicle);
         Vehicle vehicle2 = new Vehicle();
+        vehicle2.setCarPlateNumber(correctPlateNumber);
         vehicleRepository.save(vehicle2);
         assertEquals(2L,vehicleRepository.count());
     }
