@@ -7,6 +7,7 @@ import com.lastma.data.models.ViolationType;
 import com.lastma.data.repositories.*;
 
 import java.util.Date;
+import java.util.List;
 
 public class OfficerServiceImpl implements OfficerService {
     private OfficerRepository officerRepository = new OfficerRepositoryImpl();
@@ -22,7 +23,9 @@ public class OfficerServiceImpl implements OfficerService {
     }
 
     @Override
-    public void issueTicket(ViolationType type, Driver driver) {
+    public void issueTicket(int officerId, ViolationType type, Driver driver) {
+        boolean isExist = validate(officerId);
+        if (!isExist)throw new IllegalArgumentException("Officer with id " + officerId + " does not exist");
         driverRepository.save(driver);
         Ticket ticket = new Ticket();
         ticket.setType(type);
@@ -32,5 +35,21 @@ public class OfficerServiceImpl implements OfficerService {
         ticket.setDueDate(new Date(ticket.getIssuedDate().getTime() + 5L * 24 * 60 * 60 * 1000));
         driver.getTickets().add(ticket);
         ticketRepository.save(ticket);
+    }
+    @Override
+    public List<Ticket> viewDriverTicket(int driverId) {
+        Driver foundDriver = driverRepository.findById(driverId);
+        validate(foundDriver);
+        return foundDriver.getTickets();
+    }
+
+    private boolean validate(int officerId){
+        for (Officer officer : officerRepository.findAll()) {
+            if (officer.getId() == officerId) return true;
+        }
+        return false;
+    }
+    private void validate(Driver driver) {
+        if(driver == null) throw new IllegalArgumentException("Driver does not exist");
     }
 }
