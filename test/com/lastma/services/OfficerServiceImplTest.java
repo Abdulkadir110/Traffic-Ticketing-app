@@ -66,6 +66,7 @@ class OfficerServiceImplTest {
         officerService.issueTicket(1,ViolationType.DUI,driver);
         assertEquals(1, driver.getTickets().size());
         assertEquals(1L, driverRepository.count());
-        assertEquals(officerService.viewDriverTicket(driver.getId()).size(), 1);
+        assertEquals(1, officerService.viewDriverTicket(driver.getId()).size());
     }
+
 }
