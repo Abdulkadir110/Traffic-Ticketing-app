@@ -13,6 +13,7 @@ class OfficerRepositoryImplTest {
     public void startWith() {
         officerRepositoryImpl = new OfficerRepositoryImpl();
         officer = new Officer();
+        officerRepositoryImpl.deleteAll();
     }
     @Test
     public void saveOfficer_countIsOne(){
@@ -52,5 +53,11 @@ class OfficerRepositoryImplTest {
         officerRepositoryImpl.save(officer2);
         officerRepositoryImpl.deleteById(1);
         assertEquals(1L, officerRepositoryImpl.count());
+    }
+    @Test
+    public void saveOfficer_checkIfOfficerExist(){
+        officer.setFullName("John Doe");
+        officerRepositoryImpl.save(officer);
+        assertTrue(officerRepositoryImpl.existsById(1));
     }
 }

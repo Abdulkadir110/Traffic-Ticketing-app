@@ -1,15 +1,14 @@
 package com.lastma.data.repositories;
 
-import com.lastma.data.models.Driver;
 import com.lastma.data.models.Officer;
-import com.lastma.data.models.Officer;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class OfficerRepositoryImpl implements OfficerRepository {
     private int idcount;
-    private List<Officer> officers = new ArrayList<>();
+    private static List<Officer> officers = new ArrayList<>();
     @Override
     public long count() {
         return officers.size();

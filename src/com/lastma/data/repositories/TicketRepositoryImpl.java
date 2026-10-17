@@ -1,6 +1,5 @@
 package com.lastma.data.repositories;
 
-import com.lastma.data.models.Driver;
 import com.lastma.data.models.Ticket;
 
 import java.util.ArrayList;
@@ -18,6 +17,8 @@ public class TicketRepositoryImpl implements TicketRepository {
             return ticket;
         }
         ticket.setId(++idCount);
+        Date now = new Date();
+        ticket.setIssuedDate(now);
         tickets.add(ticket);
         return ticket;
     }
