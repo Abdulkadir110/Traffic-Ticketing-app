@@ -2,6 +2,8 @@ package com.lastma.data.repositories;
 
 import com.lastma.data.models.Officer;
 
+import java.util.List;
+
 public interface OfficerRepository {
     long count();
 
@@ -10,6 +12,8 @@ public interface OfficerRepository {
     Officer findById(int id);
 
     void deleteById(int id);
-    void delete(Officer officer);
+    void deleteAll();
+    List<Officer> findAll();
+    boolean existsById(int id);
 }
 

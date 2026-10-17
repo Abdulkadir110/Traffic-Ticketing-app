@@ -67,7 +67,7 @@ class TicketRepositoryImplTest {
         Ticket ticket2 = new Ticket();
         ticketRepository.save(ticket2);
         assertEquals(2L, ticketRepository.count());
-        ticketRepository.delete(ticket);
+        ticketRepository.deleteById(1);
         assertEquals(1L, ticketRepository.count());
     }
     @Test

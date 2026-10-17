@@ -2,6 +2,8 @@ package com.lastma.data.repositories;
 
 import com.lastma.data.models.Ticket;
 
+import java.util.List;
+
 public interface TicketRepository {
 
     Ticket save(Ticket ticket);
@@ -9,7 +11,8 @@ public interface TicketRepository {
 
     Ticket findById(int id);
 
-    void delete(Ticket ticket);
-
     void deleteById(int id);
+    boolean existsById(int id);
+    List<Ticket> findAll();
+    void deleteAll();
 }

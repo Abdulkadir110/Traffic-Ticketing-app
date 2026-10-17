@@ -1,5 +1,6 @@
 package com.lastma.data.repositories;
 
+import com.lastma.data.models.Driver;
 import com.lastma.data.models.Ticket;
 
 import java.util.ArrayList;
@@ -7,23 +8,23 @@ import java.util.Date;
 import java.util.List;
 
 public class TicketRepositoryImpl implements TicketRepository {
-    private int count;
     private int idCount;
     private List<Ticket> tickets = new ArrayList<>();
 
     @Override
     public Ticket save(Ticket ticket) {
-        Date todayDate = new Date();
-        tickets.add(ticket);
+        if (existsById(ticket.getId())) {
+            update(ticket);
+            return ticket;
+        }
         ticket.setId(++idCount);
-        ticket.setIssuedDate(todayDate);
-        count++;
+        tickets.add(ticket);
         return ticket;
     }
 
     @Override
     public long count() {
-        return count;
+        return tickets.size();
     }
 
     @Override
@@ -37,17 +38,25 @@ public class TicketRepositoryImpl implements TicketRepository {
     }
 
     @Override
-    public void delete(Ticket ticket) {
-        Ticket foundTicket = findTicket(ticket);
-        tickets.remove(foundTicket);
-        count--;
-    }
-
-    @Override
     public void deleteById(int id) {
         Ticket foundTicket = findById(id);
         tickets.remove(foundTicket);
-        count--;
+    }
+
+    @Override
+    public boolean existsById(int id) {
+        Ticket  foundTicket = findById(id);
+        return foundTicket != null;
+    }
+
+    @Override
+    public List<Ticket> findAll() {
+        return List.copyOf(tickets);
+    }
+
+    @Override
+    public void deleteAll() {
+        tickets.clear();
     }
 
     private Ticket findTicket(Ticket ticket) {
@@ -57,5 +66,14 @@ public class TicketRepositoryImpl implements TicketRepository {
             }
         }
         return null;
+    }
+    private void validate(Ticket ticket) {
+        if (ticket == null) throw new IllegalArgumentException("The entity is null");
+    }
+    private void update(Ticket ticket) {
+        Ticket  foundTicket = findTicket(ticket);
+        if(foundTicket != null && foundTicket.getId() == ticket.getId()){
+            tickets.set(tickets.indexOf(ticket), ticket);
+        }
     }
 }

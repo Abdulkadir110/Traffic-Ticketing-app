@@ -73,7 +73,7 @@ public class DriverRepositoryImplTest {
         driver.setFullName("Opeyemi");
         driver.setEmail("blackDoe@gmail.com");
         driver.setCarPlateNumber("LRN563A5");
-        Driver updatedDriver = driverRepository.update(driver);
+        Driver updatedDriver = driverRepository.save(driver);
         assertEquals(1L, driverRepository.count());
         assertSame(savedDriver, updatedDriver);
         assertEquals(savedDriver.getFullName(), updatedDriver.getFullName());
@@ -88,7 +88,7 @@ public class DriverRepositoryImplTest {
         driverRepository.save(driver);
         driverRepository.save(driverTwo);
         assertEquals(2L, driverRepository.count());
-        driverRepository.delete(driver);
+        driverRepository.deleteById(1);
         assertEquals(1L, driverRepository.count());
     }
     @Test
@@ -105,7 +105,7 @@ public class DriverRepositoryImplTest {
         Driver savedDriver2 = driverRepository.save(driverTwo);
         driverRepository.save(driverThree);
         assertEquals(3L, driverRepository.count());
-        driverRepository.delete(driver);
+        driverRepository.deleteById(1);
         Driver foundDriver = driverRepository.findById(2);
         assertEquals(savedDriver2, foundDriver);
         assertEquals(2L, driverRepository.count());
@@ -117,5 +117,20 @@ public class DriverRepositoryImplTest {
     @Test
     public void find_an_Entity_with_WrongId_Null_Entity(){
         assertNull(driverRepository.findById(1));
+    }
+    @Test
+    public void addDriver_checkIfItExists_ReturnsTrue(){
+        driver.setFullName("Abdulkadir");
+        driverRepository.save(driver);
+        assertTrue(driverRepository.existsById(1));
+    }
+    @Test
+    public void saveDriver_thenSave_SameDriver_ThrowsException(){
+        driver.setFullName("Abdulkadir");
+        driverRepository.save(driver);
+        assertEquals(1L, driverRepository.count());
+        assertThrows(IllegalArgumentException.class,()->driverRepository.save(driver));
+        assertEquals(1L, driverRepository.count());
+
     }
 }

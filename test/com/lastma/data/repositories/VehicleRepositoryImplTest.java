@@ -8,21 +8,21 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class VehicleRepositoryImplTest {
     private VehicleRepositoryImpl vehicleRepository;
-
+    private Vehicle vehicle;
+    private String correctPlateNumber = "LRB2494AD";
     @BeforeEach
     public void startWith() {
         vehicleRepository = new VehicleRepositoryImpl();
+        vehicle = new Vehicle();
     }
 
     @Test
     public void saveAVehicle_countIsOne(){
-        Vehicle vehicle = new Vehicle();
         vehicleRepository.save(vehicle);
         assertEquals(1L,vehicleRepository.count());
     }
     @Test
     public void saveTwoVehicles_countIsTwo(){
-        Vehicle vehicle = new Vehicle();
         vehicleRepository.save(vehicle);
         Vehicle vehicle2 = new Vehicle();
         vehicleRepository.save(vehicle2);
@@ -30,10 +30,19 @@ public class VehicleRepositoryImplTest {
     }
     @Test
     public void saveSameVehiclesTwice_countIsOne(){
-        Vehicle vehicle = new Vehicle();
+        vehicle.setCarPlateNumber(correctPlateNumber);
         vehicleRepository.save(vehicle);
         assertEquals(1L,vehicleRepository.count());
+        vehicle.setCarPlateNumber("BRN817DS");
         vehicleRepository.save(vehicle);
         assertEquals(1L,vehicleRepository.count());
+    }
+    @Test
+    public void saveVehicle_checkIfExists(){
+        vehicle.setCarPlateNumber(correctPlateNumber);
+        vehicleRepository.save(vehicle);
+        assertEquals(1L,vehicleRepository.count());
+        assertTrue(vehicleRepository.existsById(correctPlateNumber));
+        assertFalse(vehicleRepository.existsById("BRN817DS"));
     }
 }

@@ -2,11 +2,14 @@ package com.lastma.data.repositories;
 
 import com.lastma.data.models.Driver;
 
+import java.util.List;
+
 public interface DriverRepository {
     long count();
     Driver save(Driver driver);
     Driver findById(int id);
-    Driver update(Driver driver);
-
-    void delete(Driver driver);
+    void deleteById(int id);
+    void deleteAll();
+    List<Driver> findAll();
+    boolean existsById(int id);
 }

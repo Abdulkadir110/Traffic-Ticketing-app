@@ -6,20 +6,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DriverRepositoryImpl implements DriverRepository{
-    private int count;
     private int idcount;
     private List<Driver> drivers = new ArrayList<>();
     @Override
     public long count() {
-        return count;
+        return drivers.size();
     }
 
     @Override
     public Driver save(Driver driver) {
-        validate(driver);
+        if (existsById(driver.getId())) {
+            update(driver);
+            return driver;
+        }
         driver.setId(++idcount);
         drivers.add(driver);
-        count++;
         return driver;
     }
 
@@ -29,22 +30,27 @@ public class DriverRepositoryImpl implements DriverRepository{
     }
 
     @Override
-    public Driver update(Driver driver) {
-        validate(driver);
-        Driver foundDriver = findDriver(driver);
-        if (foundDriver != null) {
-            drivers.set(drivers.indexOf(driver), driver);
-            return driver;
-        }
-        return null;
+    public void deleteById(int id) {
+        Driver driver = findDriver(id);
+        drivers.remove(driver);
     }
 
     @Override
-    public void delete(Driver driver) {
-        Driver foundDriver = findDriver(driver);
-        drivers.remove(foundDriver);
-        count--;
+    public void deleteAll() {
+        drivers.clear();
     }
+
+    @Override
+    public List<Driver> findAll() {
+        return List.copyOf(drivers);
+    }
+
+    @Override
+    public boolean existsById(int id) {
+        Driver foundDriver = findById(id);
+        return foundDriver != null;
+    }
+
     private Driver findDriver(int id){
         for(Driver driver : drivers){
             if(driver.getId() == id){
@@ -64,4 +70,11 @@ public class DriverRepositoryImpl implements DriverRepository{
     private void validate(Driver driver){
         if(driver == null) throw new IllegalArgumentException("The entity is null");
     }
+    private void update(Driver driver) {
+        Driver  foundDriver = findDriver(driver);
+        if(foundDriver != null && foundDriver.getId() == driver.getId()){
+                drivers.set(drivers.indexOf(driver), driver);
+        }
+    }
 }
+
