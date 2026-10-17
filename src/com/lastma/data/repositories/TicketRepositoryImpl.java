@@ -3,7 +3,6 @@ package com.lastma.data.repositories;
 import com.lastma.data.models.Ticket;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class TicketRepositoryImpl implements TicketRepository {
@@ -12,13 +11,12 @@ public class TicketRepositoryImpl implements TicketRepository {
 
     @Override
     public Ticket save(Ticket ticket) {
+        validate(ticket);
         if (existsById(ticket.getId())) {
             update(ticket);
             return ticket;
         }
         ticket.setId(++idCount);
-        Date now = new Date();
-        ticket.setIssuedDate(now);
         tickets.add(ticket);
         return ticket;
     }

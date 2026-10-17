@@ -7,7 +7,7 @@ import java.util.List;
 
 public class DriverRepositoryImpl implements DriverRepository{
     private int idcount;
-    private List<Driver> drivers = new ArrayList<>();
+    private static List<Driver> drivers = new ArrayList<>();
     @Override
     public long count() {
         return drivers.size();
@@ -15,6 +15,7 @@ public class DriverRepositoryImpl implements DriverRepository{
 
     @Override
     public Driver save(Driver driver) {
+        validate(driver);
         if (existsById(driver.getId())) {
             update(driver);
             return driver;

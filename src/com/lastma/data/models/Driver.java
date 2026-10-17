@@ -1,10 +1,14 @@
 package com.lastma.data.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Driver {
     private int id;
     private String fullName;
     private String email;
     private String carPlateNumber;
+    private List<Ticket> tickets = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -40,5 +44,13 @@ public class Driver {
 
     public String toString() {
         return "id : " + getId() + " name: " + getFullName() + " email: " + getEmail();
+    }
+
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(Ticket tickets) {
+        this.tickets.add(tickets);
     }
 }

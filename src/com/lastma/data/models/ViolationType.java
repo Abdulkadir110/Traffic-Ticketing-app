@@ -8,7 +8,11 @@ public enum ViolationType {
     ONE_WAY(25_000),
     ;
 
+    private double fee;
     ViolationType(double fee){
-
+        this.fee = fee;
+    }
+    public double getFee() {
+        return fee;
     }
 }

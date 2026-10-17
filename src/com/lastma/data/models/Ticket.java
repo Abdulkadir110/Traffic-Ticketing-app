@@ -29,7 +29,7 @@ public class Ticket {
         return violationFee;
     }
 
-    public void setViolationFee(int violationFee) {
+    public void setViolationFee(double violationFee) {
         this.violationFee = violationFee;
     }
 

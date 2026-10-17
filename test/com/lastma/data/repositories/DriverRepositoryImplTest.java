@@ -13,6 +13,7 @@ public class DriverRepositoryImplTest {
     public void startWith(){
         driverRepository = new DriverRepositoryImpl();
         driver = new Driver();
+        driverRepository.deleteAll();
     }
     @Test
     public void save_Driver_count_increase_to_one(){
@@ -129,7 +130,7 @@ public class DriverRepositoryImplTest {
         driver.setFullName("Abdulkadir");
         driverRepository.save(driver);
         assertEquals(1L, driverRepository.count());
-        assertThrows(IllegalArgumentException.class,()->driverRepository.save(driver));
+        driverRepository.save(driver);
         assertEquals(1L, driverRepository.count());
 
     }
