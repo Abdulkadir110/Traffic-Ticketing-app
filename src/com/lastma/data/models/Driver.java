@@ -7,7 +7,7 @@ public class Driver {
     private int id;
     private String fullName;
     private String email;
-    private String carPlateNumber;
+    private String phoneNumber;
     private String password;
     private List<Ticket> tickets = new ArrayList<>();
     private List<Vehicle>  vehicles = new ArrayList<>();
@@ -36,12 +36,12 @@ public class Driver {
         this.email = email;
     }
 
-    public String getCarPlateNumber() {
-        return carPlateNumber;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setCarPlateNumber(String carPlateNumber) {
-        this.carPlateNumber = carPlateNumber;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String toString() {

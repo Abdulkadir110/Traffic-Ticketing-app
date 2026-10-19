@@ -73,7 +73,7 @@ public class DriverRepositoryImplTest {
         assertEquals(1L, driverRepository.count());
         driver.setFullName("Opeyemi");
         driver.setEmail("blackDoe@gmail.com");
-        driver.setCarPlateNumber("LRN563A5");
+        driver.setPhoneNumber("08012345678");
         Driver updatedDriver = driverRepository.save(driver);
         assertEquals(1L, driverRepository.count());
         assertSame(savedDriver, updatedDriver);

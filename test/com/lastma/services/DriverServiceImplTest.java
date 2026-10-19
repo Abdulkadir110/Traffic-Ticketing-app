@@ -1,59 +1,42 @@
 package com.lastma.services;
 
-import com.lastma.data.models.VehicleType;
 import com.lastma.data.repositories.DriverRepository;
 import com.lastma.data.repositories.DriverRepositoryImpl;
-import com.lastma.data.repositories.VehicleRepository;
-import com.lastma.data.repositories.VehicleRepositoryImpl;
+import com.lastma.dtos.reponses.FindDriverDetails;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.Year;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DriverServiceImplTest {
     private DriverService driverService;
     private DriverRepository driverRepository;
-    private VehicleRepository vehicleRepository;
-    private String plateNumber = "LRN567AS";
-    private String correctPassword = "password";
+    private String correctPassword = "1111";
     @BeforeEach
     public void setup() {
         driverService = new DriverServiceImpl();
         driverRepository = new DriverRepositoryImpl();
-        vehicleRepository = new VehicleRepositoryImpl();
         driverRepository.deleteAll();
-        vehicleRepository.deleteAll();
     }
     @Test
-    public void RegisterDriver_driverCountIsOne(){
+    public void register_ADriver_driverRepository_count_isOne() {
         assertEquals(0L, driverRepository.count());
-        driverService.register("full name", "email", "car plateNumber", correctPassword);
+        driverService.register("full name", "email", "phone number", "password");
         assertEquals(1L, driverRepository.count());
     }
     @Test
-    public void registerTwoDrivers_CountIsTwo(){
+    public void register_TwoDrivers_driverRepository_count_isTwo() {
         assertEquals(0L, driverRepository.count());
-        driverService.register("Opeyemi", "ope@gmail.com", plateNumber,correctPassword);
-        driverService.register("Abdulkadir", "kadir@gmail.com", "PYT457DQ",correctPassword);
+        driverService.register("Abdulkadir", "kadir@gmail.com", "08123456789",correctPassword);
+        driverService.register("Opeyemi", "ope@gmail.com", "09123456789",correctPassword);
         assertEquals(2L, driverRepository.count());
     }
     @Test
-    public void registeredDriver_registerVehicle_VehicleCountIsOne(){
-        assertEquals(0L, driverRepository.count());
-        driverService.register("Opeyemi", "ope@gmail.com", plateNumber, correctPassword);
-        driverService.registerVehicle(1,"Toyota", "camry", VehicleType.CAR, Year.of(2025), plateNumber);
+    public void registerDriver_getRegisteredDriverDetails_inTheRepository(){
+        FindDriverDetails registeredDriver = driverService.register("Abdulkadir", "kadir@gmail.com", "08123456789",correctPassword);
         assertEquals(1L, driverRepository.count());
-        assertEquals(1L, vehicleRepository.count());
+        assertEquals("Abdulkadir", registeredDriver.getFullName());
+        assertEquals("kadir@gmail.com", registeredDriver.getEmail());
+        assertEquals("08123456789", registeredDriver.getPhoneNumber());
     }
-    @Test
-    public void registeredDriver_registerVehicleWithWrongDriverId_throwsException(){
-        assertEquals(0L, driverRepository.count());
-        driverService.register("Opeyemi", "ope@gmail.com", plateNumber, correctPassword);
-        assertThrows(IllegalArgumentException.class, () -> driverService.registerVehicle(2,"Toyota", "camry", VehicleType.CAR, Year.of(2025), plateNumber));
-        assertEquals(1L, driverRepository.count());
-        assertEquals(0L, vehicleRepository.count());
-    }
-
 }
