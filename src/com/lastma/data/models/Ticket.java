@@ -4,10 +4,15 @@ import java.util.Date;
 
 public class Ticket {
     private int id;
-    private ViolationType type;
-    private double violationFee;
-    private Date issuedDate;
-    private Date dueDate;
+    private int ticketNumber;
+    private int vehicleId;
+    private int offenceId;
+    private Date incidentDateTime;
+    private String location;
+    private String description;
+    private double accessedFine;
+    private PaymentStatus paymentStatus;
+    private Date issuedAt;
 
     public int getId() {
         return id;
@@ -17,35 +22,75 @@ public class Ticket {
         this.id = id;
     }
 
-    public ViolationType getType() {
-        return type;
+    public int getTicketNumber() {
+        return ticketNumber;
     }
 
-    public void setType(ViolationType type) {
-        this.type = type;
+    public void setTicketNumber(int ticketNumber) {
+        this.ticketNumber = ticketNumber;
     }
 
-    public double getViolationFee() {
-        return violationFee;
+    public int getVehicleId() {
+        return vehicleId;
     }
 
-    public void setViolationFee(double violationFee) {
-        this.violationFee = violationFee;
+    public void setVehicleId(int vehicleId) {
+        this.vehicleId = vehicleId;
     }
 
-    public Date getIssuedDate() {
-        return issuedDate;
+    public int getOffenceId() {
+        return offenceId;
     }
 
-    public void setIssuedDate(Date issuedDate) {
-        this.issuedDate = issuedDate;
+    public void setOffenceId(int offenceId) {
+        this.offenceId = offenceId;
     }
 
-    public Date getDueDate() {
-        return dueDate;
+    public Date getIncidentDateTime() {
+        return incidentDateTime;
     }
 
-    public void setDueDate(Date dueDate) {
-        this.dueDate = dueDate;
+    public void setIncidentDateTime(Date incidentDateTime) {
+        this.incidentDateTime = incidentDateTime;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public double getAccessedFine() {
+        return accessedFine;
+    }
+
+    public void setAccessedFine(double accessedFine) {
+        this.accessedFine = accessedFine;
+    }
+
+    public PaymentStatus getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(PaymentStatus paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
+
+    public Date getIssuedAt() {
+        return issuedAt;
+    }
+
+    public void setIssuedAt(Date issuedAt) {
+        this.issuedAt = issuedAt;
     }
 }

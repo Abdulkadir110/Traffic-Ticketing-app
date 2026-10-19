@@ -9,43 +9,98 @@ import static org.junit.jupiter.api.Assertions.*;
 public class VehicleRepositoryImplTest {
     private VehicleRepositoryImpl vehicleRepository;
     private Vehicle vehicle;
-    private String correctPlateNumber = "LRB2494AD";
+    private String plateNumber = "LRN563AD";
     @BeforeEach
-    public void startWith() {
+    public void setUp() {
         vehicleRepository = new VehicleRepositoryImpl();
-        vehicle = new Vehicle();
         vehicleRepository.deleteAll();
+        vehicle = new Vehicle();
     }
-
     @Test
-    public void saveAVehicle_countIsOne(){
+    public void saveVehicle_vehicleRepositoryCount_isOne() {
+        assertEquals(0L, vehicleRepository.count());
+        vehicle.setPlateNumber(plateNumber);
         vehicleRepository.save(vehicle);
-        assertEquals(1L,vehicleRepository.count());
+        assertEquals(1L, vehicleRepository.count());
     }
     @Test
-    public void saveTwoVehicles_countIsTwo(){
-        vehicle.setCarPlateNumber("LRB2494YH");
+    public void saveTwoVehicle_vehicleRepositoryCount_isTwo() {
+        assertEquals(0L, vehicleRepository.count());
+        vehicle.setPlateNumber(plateNumber);
         vehicleRepository.save(vehicle);
         Vehicle vehicle2 = new Vehicle();
-        vehicle2.setCarPlateNumber(correctPlateNumber);
+        vehicle.setPlateNumber("plateNumber");
         vehicleRepository.save(vehicle2);
-        assertEquals(2L,vehicleRepository.count());
+        assertEquals(2L, vehicleRepository.count());
     }
     @Test
-    public void saveSameVehiclesTwice_countIsOne(){
-        vehicle.setCarPlateNumber(correctPlateNumber);
-        vehicleRepository.save(vehicle);
-        assertEquals(1L,vehicleRepository.count());
-        vehicle.setCarPlateNumber("BRN817DS");
-        vehicleRepository.save(vehicle);
-        assertEquals(1L,vehicleRepository.count());
+    public void save_nullVehicle_throwsException(){
+        assertThrows(IllegalArgumentException.class, () -> vehicleRepository.save(null));
     }
     @Test
-    public void saveVehicle_checkIfExists(){
-        vehicle.setCarPlateNumber(correctPlateNumber);
+    public void VehicleSaved_CanBeUpdated() {
+        vehicle.setPlateNumber(plateNumber);
         vehicleRepository.save(vehicle);
-        assertEquals(1L,vehicleRepository.count());
-        assertTrue(vehicleRepository.existsById(correctPlateNumber));
-        assertFalse(vehicleRepository.existsById("BRN817DS"));
+        vehicle.setPlateNumber("plateNumber");
+        vehicleRepository.save(vehicle);
+        assertEquals(1L, vehicleRepository.count());
+    }
+    @Test
+    public void VehicleSaved_Updating_aNon_SavedVehicle_countIsOne() {
+        vehicle.setPlateNumber(plateNumber);
+        vehicleRepository.save(vehicle);
+        Vehicle vehicle2 = new Vehicle();
+        vehicle.setPlateNumber("plateNumber");
+        assertEquals(1L, vehicleRepository.count());
+    }
+    @Test
+    public void saveTwoVehicle_findVehicleById_() {
+        assertEquals(0L, vehicleRepository.count());
+        Vehicle vehicle = new Vehicle();
+        vehicle.setPlateNumber("plateNumber");
+        vehicleRepository.save(vehicle);
+        Vehicle vehicle2 = new Vehicle();
+        vehicle.setPlateNumber(plateNumber);
+        vehicleRepository.save(vehicle2);
+        Vehicle foundVehicle = vehicleRepository.findById(plateNumber);
+        assertSame(vehicle, foundVehicle);
+    }
+    @Test
+    public void findNon_ExistingVehicle_ById_() {
+        assertEquals(0L, vehicleRepository.count());
+        assertNull(vehicleRepository.findById(plateNumber));
+    }
+    @Test
+    public void saveVehicle_checkIfvehicleExistById_() {
+        assertEquals(0L, vehicleRepository.count());
+        vehicle.setPlateNumber(plateNumber);
+        vehicleRepository.save(vehicle);
+        assertTrue(vehicleRepository.existsById(plateNumber));
+    }
+    @Test
+    public void saveVehicle_checkIfVehicleExistByNonExisting_Id() {
+        vehicle.setPlateNumber(plateNumber);
+        vehicleRepository.save(vehicle);
+        assertFalse(vehicleRepository.existsById("plateNumber"));
+    }
+    @Test
+    public void save2Vehicle_findTheTwoVehicle() {
+        vehicle.setPlateNumber(plateNumber);
+        vehicleRepository.save(vehicle);
+        Vehicle vehicle2 = new Vehicle();
+        vehicle.setPlateNumber("plateNumber");
+        vehicleRepository.save(vehicle2);
+        assertEquals(2L, vehicleRepository.count());
+        assertEquals(2,  vehicleRepository.findAll().size());
+    }
+    @Test
+    public void save2Vehicle_DeleteOneVehicle() {
+        vehicle.setPlateNumber(plateNumber);
+        vehicleRepository.save(vehicle);
+        Vehicle vehicle2 = new Vehicle();
+        vehicle.setPlateNumber("plateNumber");
+        vehicleRepository.save(vehicle2);
+        vehicleRepository.delete("plateNumber");
+        assertEquals(1L, vehicleRepository.count());
     }
 }

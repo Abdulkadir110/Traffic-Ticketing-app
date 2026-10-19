@@ -16,6 +16,7 @@ public class OfficerRepositoryImpl implements OfficerRepository {
 
     @Override
     public Officer save(Officer officer) {
+        validate(officer);
         if (existsById(officer.getId())) {
             update(officer);
             return officer;
@@ -60,21 +61,10 @@ public class OfficerRepositoryImpl implements OfficerRepository {
         }
         return null;
     }
-    private Officer findOfficer(Officer Officer){
-        for(Officer eachOfficer : officers){
-            if(Officer.equals(eachOfficer)){
-                return eachOfficer;
-            }
-        }
-        return null;
-    }
     private void validate(Officer Officer){
         if(Officer == null) throw new IllegalArgumentException("The entity is null");
     }
     private void update(Officer officer) {
-        Officer  foundOfficer = findOfficer(officer);
-        if(foundOfficer != null && foundOfficer.getId() == officer.getId()){
-            officers.set(officers.indexOf(officer), officer);
-        }
+        officers.set(officers.indexOf(officer), officer);
     }
 }

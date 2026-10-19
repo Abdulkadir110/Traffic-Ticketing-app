@@ -72,10 +72,7 @@ public class DriverRepositoryImpl implements DriverRepository{
         if(driver == null) throw new IllegalArgumentException("The entity is null");
     }
     private void update(Driver driver) {
-        Driver  foundDriver = findDriver(driver);
-        if(foundDriver != null && foundDriver.getId() == driver.getId()){
-                drivers.set(drivers.indexOf(driver), driver);
-        }
+        drivers.set(drivers.indexOf(driver), driver);
     }
 }
 

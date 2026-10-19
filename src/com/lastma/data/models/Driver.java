@@ -10,6 +10,7 @@ public class Driver {
     private String carPlateNumber;
     private String password;
     private List<Ticket> tickets = new ArrayList<>();
+    private List<Vehicle>  vehicles = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -61,5 +62,13 @@ public class Driver {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Vehicle> getVehicles() {
+        return vehicles;
+    }
+
+    public void setVehicles(List<Vehicle> vehicles) {
+        this.vehicles = vehicles;
     }
 }

@@ -6,8 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TicketRepositoryImpl implements TicketRepository {
-    private int idCount;
-    private List<Ticket> tickets = new ArrayList<>();
+    private int idcount;
+    private static List<Ticket> tickets = new ArrayList<>();
+    @Override
+    public long count() {
+        return tickets.size();
+    }
 
     @Override
     public Ticket save(Ticket ticket) {
@@ -16,36 +20,25 @@ public class TicketRepositoryImpl implements TicketRepository {
             update(ticket);
             return ticket;
         }
-        ticket.setId(++idCount);
+        ticket.setId(++idcount);
         tickets.add(ticket);
         return ticket;
     }
 
     @Override
-    public long count() {
-        return tickets.size();
-    }
-
-    @Override
     public Ticket findById(int id) {
-        for (Ticket ticket : tickets) {
-            if (ticket.getId() == id) {
-                return ticket;
-            }
-        }
-        return null;
+        return findTicket(id);
     }
 
     @Override
     public void deleteById(int id) {
-        Ticket foundTicket = findById(id);
+        Ticket foundTicket = findTicket(id);
         tickets.remove(foundTicket);
     }
 
     @Override
-    public boolean existsById(int id) {
-        Ticket  foundTicket = findById(id);
-        return foundTicket != null;
+    public void deleteAll() {
+        tickets.clear();
     }
 
     @Override
@@ -54,25 +47,23 @@ public class TicketRepositoryImpl implements TicketRepository {
     }
 
     @Override
-    public void deleteAll() {
-        tickets.clear();
+    public boolean existsById(int id) {
+        Ticket foundTicket = findById(id);
+        return foundTicket != null;
     }
 
-    private Ticket findTicket(Ticket ticket) {
-        for (Ticket ticket2 : tickets) {
-            if (ticket2.equals(ticket)) {
+    private Ticket findTicket(int id){
+        for(Ticket ticket : tickets){
+            if(ticket.getId() == id){
                 return ticket;
             }
         }
         return null;
     }
-    private void validate(Ticket ticket) {
-        if (ticket == null) throw new IllegalArgumentException("The entity is null");
+    private void validate(Ticket ticket){
+        if(ticket == null) throw new IllegalArgumentException("The entity is null");
     }
     private void update(Ticket ticket) {
-        Ticket  foundTicket = findTicket(ticket);
-        if(foundTicket != null && foundTicket.getId() == ticket.getId()){
-            tickets.set(tickets.indexOf(ticket), ticket);
-        }
+        tickets.set(tickets.indexOf(ticket), ticket);
     }
 }

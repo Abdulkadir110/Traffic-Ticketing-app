@@ -3,18 +3,35 @@ package com.lastma.data.models;
 import java.time.Year;
 
 public class Vehicle {
-    private String brand;
+    private int id;
+    private String plateNumber;
+    private String make;
     private String model;
-    private VehicleType type;
-    private Year year;
-    private String carPlateNumber;
+    private String color;
+    private int driverId;
 
-    public String getBrand() {
-        return brand;
+    public int getId() {
+        return id;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getPlateNumber() {
+        return plateNumber;
+    }
+
+    public void setPlateNumber(String plateNumber) {
+        this.plateNumber = plateNumber;
+    }
+
+    public String getMake() {
+        return make;
+    }
+
+    public void setMake(String make) {
+        this.make = make;
     }
 
     public String getModel() {
@@ -25,27 +42,19 @@ public class Vehicle {
         this.model = model;
     }
 
-    public VehicleType getType() {
-        return type;
+    public String getColor() {
+        return color;
     }
 
-    public void setType(VehicleType type) {
-        this.type = type;
+    public void setColor(String color) {
+        this.color = color;
     }
 
-    public Year getYear() {
-        return year;
+    public int getDriverId() {
+        return driverId;
     }
 
-    public void setYear(Year year) {
-        this.year = year;
-    }
-
-    public String getCarPlateNumber() {
-        return carPlateNumber;
-    }
-
-    public void setCarPlateNumber(String carPlateNumber) {
-        this.carPlateNumber = carPlateNumber;
+    public void setDriverId(int driverId) {
+        this.driverId = driverId;
     }
 }

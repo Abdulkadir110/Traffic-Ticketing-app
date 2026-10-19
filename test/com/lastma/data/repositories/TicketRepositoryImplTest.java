@@ -1,7 +1,6 @@
 package com.lastma.data.repositories;
 
 import com.lastma.data.models.Ticket;
-import com.lastma.data.models.ViolationType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,72 +10,96 @@ class TicketRepositoryImplTest {
 
     private TicketRepositoryImpl ticketRepository;
     private Ticket ticket;
-
     @BeforeEach
-    public void startWith() {
+    public void setUp() {
         ticketRepository = new TicketRepositoryImpl();
+        ticketRepository.deleteAll();
         ticket = new Ticket();
     }
     @Test
-    public void test_save_ticket_count_is_one(){
+    public void saveTicket_ticketRepositoryCount_isOne() {
+        assertEquals(0L, ticketRepository.count());
+        ticket.setDescription("Test ticket");
         ticketRepository.save(ticket);
         assertEquals(1L, ticketRepository.count());
     }
     @Test
-    public void test_save_two_tickets_count_is_two(){
-        Ticket ticket2 = new Ticket();
+    public void saveTwoTicket_TicketRepositoryCount_isTwo() {
+        assertEquals(0L, ticketRepository.count());
+        ticket.setDescription("Test ticket");
         ticketRepository.save(ticket);
+        Ticket ticket2 = new Ticket();
+        ticket.setDescription("Test ticket2");
         ticketRepository.save(ticket2);
         assertEquals(2L, ticketRepository.count());
     }
     @Test
-    public void test_save_ticket_ableToGetTicketId(){
+    public void save_nullTicket_throwsException(){
+        assertThrows(IllegalArgumentException.class, () -> ticketRepository.save(null));
+    }
+    @Test
+    public void TicketSaved_CanBeUpdated() {
+        ticket.setDescription("Test ticket");
         ticketRepository.save(ticket);
-        assertEquals(1, ticket.getId());
-    }
-    @Test
-    public void test_save_ticket_CheckIfTheTicketISaved_isWhatIGot(){
-        Ticket savedTicket = ticketRepository.save(ticket);
-        assertEquals(ticket, savedTicket);
-    }
-    @Test
-    public void saveTicket_finditById(){
-        Ticket savedTicket = ticketRepository.save(ticket);
-        assertEquals(savedTicket, ticketRepository.findById(1));
-    }
-    @Test
-    public void saveTicket_findWithAWrongId_returnsNull(){
+        ticket.setDescription("Test ticket --updated");
         ticketRepository.save(ticket);
-        assertNull(ticketRepository.findById(-1));
-    }
-    @Test
-    public void saveTicket_getTicket_IssuedDate(){
-        Ticket savedTicket = ticketRepository.save(ticket);
-        assertEquals(savedTicket.getIssuedDate(),  ticket.getIssuedDate());
-    }
-    @Test
-    public void saveTicket_set_violationType_updateTicket_ViolationType_and_Fee(){
-        ticket.setType(ViolationType.ONE_WAY);
-        Ticket savedTicket = ticketRepository.save(ticket);
-        savedTicket.setType(ViolationType.EXPIRED_PAPERS);
-        assertEquals(ViolationType.EXPIRED_PAPERS, ticket.getType());
-    }
-    @Test
-    public void saveTwoTicket_DeleteOne_CountIsOne(){
-        ticketRepository.save(ticket);
-        Ticket ticket2 = new Ticket();
-        ticketRepository.save(ticket2);
-        assertEquals(2L, ticketRepository.count());
-        ticketRepository.deleteById(1);
         assertEquals(1L, ticketRepository.count());
     }
     @Test
-    public void saveTwoTicket_DeleteTicketById_CountIsOne(){
+    public void TicketSaved_Updating_aNon_SavedTicket_countIsOne() {
+        ticket.setDescription("Test ticket");
         ticketRepository.save(ticket);
         Ticket ticket2 = new Ticket();
+        ticket.setDescription("Test ticket2");
+        assertEquals(1L, ticketRepository.count());
+    }
+    @Test
+    public void saveTwoTicket_findTicketById_() {
+        assertEquals(0L, ticketRepository.count());
+        ticket.setDescription("Test ticket");
+        Ticket savedTicket = ticketRepository.save(ticket);
+        Ticket ticket2 = new Ticket();
+        ticket.setDescription("Test ticket2");
+        ticketRepository.save(ticket2);
+        Ticket foundTicket = ticketRepository.findById(1);
+        assertSame(savedTicket, foundTicket);
+    }
+    @Test
+    public void findNon_ExistingTicket_ById_() {
+        assertEquals(0L, ticketRepository.count());
+        assertNull(ticketRepository.findById(1));
+    }
+    @Test
+    public void saveTicket_checkIfTicketExistById_() {
+        assertEquals(0L, ticketRepository.count());
+        ticket.setDescription("Test ticket");
+        ticketRepository.save(ticket);
+        assertTrue(ticketRepository.existsById(1));
+    }
+    @Test
+    public void saveTicket_checkIfTicketExistByNonExisting_Id() {
+        ticket.setDescription("Test ticket");
+        ticketRepository.save(ticket);
+        assertFalse(ticketRepository.existsById(2));
+    }
+    @Test
+    public void save2Ticket_findTheTwoTicket() {
+        ticket.setDescription("Test ticket");
+        ticketRepository.save(ticket);
+        Ticket ticket2 = new Ticket();
+        ticket.setDescription("Test ticket");
         ticketRepository.save(ticket2);
         assertEquals(2L, ticketRepository.count());
-        ticketRepository.deleteById(1);
+        assertEquals(2,  ticketRepository.findAll().size());
+    }
+    @Test
+    public void save2ticket_DeleteOneTicket() {
+        ticket.setDescription("Test ticket");
+        ticketRepository.save(ticket);
+        Ticket ticket2 = new Ticket();
+        ticket.setDescription("Test ticket2");
+        ticketRepository.save(ticket2);
+        ticketRepository.deleteById(2);
         assertEquals(1L, ticketRepository.count());
     }
 

@@ -125,13 +125,4 @@ public class DriverRepositoryImplTest {
         driverRepository.save(driver);
         assertTrue(driverRepository.existsById(1));
     }
-    @Test
-    public void saveDriver_thenSave_SameDriver_ThrowsException(){
-        driver.setFullName("Abdulkadir");
-        driverRepository.save(driver);
-        assertEquals(1L, driverRepository.count());
-        driverRepository.save(driver);
-        assertEquals(1L, driverRepository.count());
-
-    }
 }

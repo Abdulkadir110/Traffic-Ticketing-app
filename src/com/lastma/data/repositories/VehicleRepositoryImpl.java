@@ -18,7 +18,8 @@ public class VehicleRepositoryImpl implements VehicleRepository {
 
     @Override
     public Vehicle save(Vehicle vehicle) {
-        if (existsById(vehicle.getCarPlateNumber())) {
+        validate(vehicle);
+        if (existsById(vehicle.getPlateNumber())) {
             update(vehicle);
             return vehicle;
         }
@@ -29,7 +30,7 @@ public class VehicleRepositoryImpl implements VehicleRepository {
     @Override
     public Vehicle findById(String plateNumber) {
         for(Vehicle vehicle : vehicles){
-            if(vehicle.getCarPlateNumber().equals(plateNumber)){
+            if(vehicle.getPlateNumber().equals(plateNumber)){
                 return vehicle;
             }
         }
@@ -61,16 +62,7 @@ public class VehicleRepositoryImpl implements VehicleRepository {
     private void validate(Vehicle vehicle){
         if(vehicle == null) throw new IllegalArgumentException("The entity is null");
     }
-    private Vehicle findByVehicle(Vehicle givenVehicle){
-        for(Vehicle vehicle : vehicles){
-            if(vehicle.equals(givenVehicle))return vehicle;
-        }
-        return null;
-    }
     private void update(Vehicle vehicle) {
-        Vehicle  foundVehicle = findByVehicle(vehicle);
-        if(foundVehicle != null && foundVehicle.getCarPlateNumber().equals(vehicle.getCarPlateNumber())){
-            vehicles.set(vehicles.indexOf(vehicle), vehicle);
-        }
+        vehicles.set(vehicles.indexOf(vehicle), vehicle);
     }
 }
