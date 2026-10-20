@@ -1,13 +1,8 @@
 package com.lastma.services;
 
-import com.lastma.data.models.Driver;
-import com.lastma.data.models.VehicleType;
-import com.lastma.data.models.ViolationType;
-import com.lastma.dtos.reponses.FindDriverDetails;
-
-import java.time.Year;
+import com.lastma.dtos.reponses.FindDriverResponses;
 
 public interface DriverService {
-    FindDriverDetails register(String fullName, String email, String phoneNumber, String password);
-
+    FindDriverResponses register(String fullName, String email, String phoneNumber, String password);
+    FindDriverResponses findById(int id);
 }

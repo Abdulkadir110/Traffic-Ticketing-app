@@ -1,14 +1,9 @@
 package com.lastma.services;
 
-import com.lastma.data.models.Driver;
-import com.lastma.data.models.Ticket;
-import com.lastma.data.models.ViolationType;
-import com.lastma.dtos.reponses.FindOfficer;
-
-import java.util.List;
+import com.lastma.dtos.reponses.FindOfficerResponses;
 
 public interface OfficerService {
-    FindOfficer register(String fullName, String email, String password);
+    FindOfficerResponses register(String fullName, String email, String password);
 
 
 }

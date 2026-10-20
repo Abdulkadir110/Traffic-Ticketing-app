@@ -2,7 +2,7 @@ package com.lastma.services;
 
 import com.lastma.data.repositories.OfficerRepository;
 import com.lastma.data.repositories.OfficerRepositoryImpl;
-import com.lastma.dtos.reponses.FindOfficer;
+import com.lastma.dtos.reponses.FindOfficerResponses;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +28,7 @@ class OfficerServiceImplTest {
     @Test
     public void registerOfficer_OfficerRepositoryCount_IsOne_getRegisteredOfficerDetails(){
         assertEquals(0L, officerRepository.count());
-        FindOfficer registeredOfficer = officerService.register("Abdulkadir", "abdul@gmail.com", password);
+        FindOfficerResponses registeredOfficer = officerService.register("Abdulkadir", "abdul@gmail.com", password);
         assertEquals(1L, officerRepository.count());
         assertEquals("Abdulkadir", registeredOfficer.getFullName());
         assertEquals("abdul@gmail.com", registeredOfficer.getEmail());

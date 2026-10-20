@@ -2,11 +2,12 @@ package com.lastma.services;
 
 import com.lastma.data.repositories.DriverRepository;
 import com.lastma.data.repositories.DriverRepositoryImpl;
-import com.lastma.dtos.reponses.FindDriverDetails;
+import com.lastma.dtos.reponses.FindDriverResponses;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 class DriverServiceImplTest {
     private DriverService driverService;
@@ -33,10 +34,19 @@ class DriverServiceImplTest {
     }
     @Test
     public void registerDriver_getRegisteredDriverDetails_inTheRepository(){
-        FindDriverDetails registeredDriver = driverService.register("Abdulkadir", "kadir@gmail.com", "08123456789",correctPassword);
+        FindDriverResponses registeredDriver = driverService.register("Abdulkadir", "kadir@gmail.com", "08123456789",correctPassword);
         assertEquals(1L, driverRepository.count());
         assertEquals("Abdulkadir", registeredDriver.getFullName());
         assertEquals("kadir@gmail.com", registeredDriver.getEmail());
         assertEquals("08123456789", registeredDriver.getPhoneNumber());
     }
+    @Test
+    public void registerDriver_findDriverById(){
+        FindDriverResponses registeredDriver = driverService.register("Abdulkadir", "kadir@gmail.com", "08123456789",correctPassword);
+        FindDriverResponses foundDriver = driverService.findById(1);
+        assertEquals(registeredDriver.getFullName(), foundDriver.getFullName());
+        assertEquals(registeredDriver.getEmail(), foundDriver.getEmail());
+        assertEquals(registeredDriver.getPhoneNumber(), foundDriver.getPhoneNumber());
+    }
+
 }

@@ -1,9 +1,9 @@
 package com.lastma.dtos.reponses;
 
-public class FindDriverDetails {
+public class FindOfficerResponses {
     private String fullName;
     private String email;
-    private String phoneNumber;
+
 
     public String getFullName() {
         return fullName;
@@ -21,11 +21,4 @@ public class FindDriverDetails {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
 }
