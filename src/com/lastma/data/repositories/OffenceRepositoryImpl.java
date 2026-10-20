@@ -17,7 +17,7 @@ public class OffenceRepositoryImpl implements OffenceRepository {
     @Override
     public Offence save(Offence offence) {
         if(offence == null) return null;
-        if (existsById(offence.getId())) {
+            if (existsById(offence.getId())) {
             update(offence);
             return offence;
         }
