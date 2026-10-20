@@ -15,7 +15,7 @@ public class PaymentRepositoryImpl implements PaymentRepository {
     }
     @Override
     public Payment save(Payment payment) {
-        validate(payment);
+        if(payment == null) return null;
         if (existsById(payment.getId())) {
             update(payment);
             return payment;
@@ -52,9 +52,6 @@ public class PaymentRepositoryImpl implements PaymentRepository {
             if (payment.getId() == id) return payment;
         }
         return null;
-    }
-    private void validate(Payment payment) {
-        if (payment == null)throw new IllegalArgumentException("The entity is null");
     }
     private void update(Payment payment) {
         payments.set(payments.indexOf(payment), payment);

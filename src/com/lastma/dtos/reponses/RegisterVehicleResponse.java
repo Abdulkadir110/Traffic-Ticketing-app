@@ -1,6 +1,6 @@
 package com.lastma.dtos.reponses;
 
-public class FindVehicleResponses {
+public class RegisterVehicleResponse {
     private String registrationNumber;
     private String make;
     private String model;

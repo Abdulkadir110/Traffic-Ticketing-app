@@ -15,4 +15,5 @@ public interface TicketRepository {
     boolean existsById(int id);
     List<Ticket> findAll();
     void deleteAll();
+    List<Ticket> findTicketsBy(String vehicleRegNumber);
 }

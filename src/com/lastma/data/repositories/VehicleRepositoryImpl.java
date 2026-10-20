@@ -15,7 +15,7 @@ public class VehicleRepositoryImpl implements VehicleRepository {
 
     @Override
     public Vehicle save(Vehicle vehicle) {
-        validate(vehicle);
+        if (vehicle == null) return null;
         if (existsById(vehicle.getRegistrationNumber())) {
             update(vehicle);
             return vehicle;
@@ -25,9 +25,9 @@ public class VehicleRepositoryImpl implements VehicleRepository {
     }
 
     @Override
-    public Vehicle findById(String plateNumber) {
+    public Vehicle findById(String registrationNumber) {
         for(Vehicle vehicle : vehicles){
-            if(vehicle.getRegistrationNumber().equals(plateNumber)){
+            if(vehicle.getRegistrationNumber().equals(registrationNumber)){
                 return vehicle;
             }
         }
@@ -35,8 +35,8 @@ public class VehicleRepositoryImpl implements VehicleRepository {
     }
 
     @Override
-    public void delete(String plateNumber) {
-        Vehicle foundVehicle = findById(plateNumber);
+    public void delete(String registrationNumber) {
+        Vehicle foundVehicle = findById(registrationNumber);
         vehicles.remove(foundVehicle);
     }
 
@@ -46,18 +46,15 @@ public class VehicleRepositoryImpl implements VehicleRepository {
     }
 
     @Override
-    public boolean existsById(String plateNumber) {
-        Vehicle foundVehicle = findById(plateNumber);
+    public boolean existsById(String registrationNumber) {
+        Vehicle foundVehicle = findById(registrationNumber);
         return foundVehicle != null;
     }
+
 
     @Override
     public List<Vehicle> findAll() {
         return List.copyOf(vehicles);
-    }
-
-    private void validate(Vehicle vehicle){
-        if(vehicle == null) throw new IllegalArgumentException("The entity is null");
     }
     private void update(Vehicle vehicle) {
         vehicles.set(vehicles.indexOf(vehicle), vehicle);

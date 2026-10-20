@@ -28,6 +28,7 @@ public enum ViolationType {
     private int point;
     private double firsTimeOffenderAmount;
     private double secondTimeOffenderAmount;
+    private String description;
     ViolationType(int point, double firstTimeOffenderAmount, double subsequentOffenderAmount) {
             this.point = point;
             this.firsTimeOffenderAmount = firstTimeOffenderAmount;
@@ -36,6 +37,18 @@ public enum ViolationType {
     ViolationType(int point, double firstTimeOffenderAmount) {
         this.point = point;
         this.firsTimeOffenderAmount = firstTimeOffenderAmount;
+    }
+    public int getPoint() {
+        return point;
+    }
+    public double getFirstTimeOffenderAmount() {
+        return firsTimeOffenderAmount;
+    }
+    public double getSecondTimeOffenderAmount() {
+        return secondTimeOffenderAmount;
+    }
+    public String getDescription() {
+        return description;
     }
 
 

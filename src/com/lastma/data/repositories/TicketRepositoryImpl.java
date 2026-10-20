@@ -15,7 +15,7 @@ public class TicketRepositoryImpl implements TicketRepository {
 
     @Override
     public Ticket save(Ticket ticket) {
-        validate(ticket);
+        if (ticket == null) return null;
         if (existsById(ticket.getId())) {
             update(ticket);
             return ticket;
@@ -42,6 +42,18 @@ public class TicketRepositoryImpl implements TicketRepository {
     }
 
     @Override
+    public List<Ticket> findTicketsBy(String vehicleRegNumber) {
+        List<Ticket> foundTickets = new ArrayList<>();
+
+        for (Ticket ticket : tickets) {
+            if (ticket.getVehicleRegistrationNumber().equals(vehicleRegNumber)) {
+                foundTickets.add(ticket);
+            }
+        }
+        return foundTickets;
+    }
+
+    @Override
     public List<Ticket> findAll() {
         return List.copyOf(tickets);
     }
@@ -59,9 +71,6 @@ public class TicketRepositoryImpl implements TicketRepository {
             }
         }
         return null;
-    }
-    private void validate(Ticket ticket){
-        if(ticket == null) throw new IllegalArgumentException("The entity is null");
     }
     private void update(Ticket ticket) {
         tickets.set(tickets.indexOf(ticket), ticket);

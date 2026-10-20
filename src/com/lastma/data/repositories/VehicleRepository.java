@@ -10,13 +10,13 @@ public interface VehicleRepository {
 
     Vehicle save(Vehicle vehicle);
 
-    Vehicle findById(String plateNumber);
+    Vehicle findById(String registrationNumber);
 
-    void delete(String plateNumber);
+    void delete(String registrationNumber);
 
     void deleteAll();
 
-    boolean existsById(String plateNumber);
+    boolean existsById(String registrationNumber);
 
     List<Vehicle> findAll();
 }

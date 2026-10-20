@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class VehicleRepositoryImplTest {
     private VehicleRepositoryImpl vehicleRepository;
     private Vehicle vehicle;
-    private String plateNumber = "LRN563AD";
+    private String registrationNumber = "LRN563AD";
     @BeforeEach
     public void setUp() {
         vehicleRepository = new VehicleRepositoryImpl();
@@ -19,14 +19,14 @@ public class VehicleRepositoryImplTest {
     @Test
     public void saveVehicle_vehicleRepositoryCount_isOne() {
         assertEquals(0L, vehicleRepository.count());
-        vehicle.setRegistrationNumber(plateNumber);
+        vehicle.setRegistrationNumber(registrationNumber);
         vehicleRepository.save(vehicle);
         assertEquals(1L, vehicleRepository.count());
     }
     @Test
     public void saveTwoVehicle_vehicleRepositoryCount_isTwo() {
         assertEquals(0L, vehicleRepository.count());
-        vehicle.setRegistrationNumber(plateNumber);
+        vehicle.setRegistrationNumber(registrationNumber);
         vehicleRepository.save(vehicle);
         Vehicle vehicle2 = new Vehicle();
         vehicle.setRegistrationNumber("plateNumber");
@@ -34,12 +34,13 @@ public class VehicleRepositoryImplTest {
         assertEquals(2L, vehicleRepository.count());
     }
     @Test
-    public void save_nullVehicle_throwsException(){
-        assertThrows(IllegalArgumentException.class, () -> vehicleRepository.save(null));
+    public void save_NullVehicle_vehicleRepositoryCount_isZero(){
+        vehicleRepository.save(null);
+        assertEquals(0L, vehicleRepository.count());
     }
     @Test
     public void VehicleSaved_CanBeUpdated() {
-        vehicle.setRegistrationNumber(plateNumber);
+        vehicle.setRegistrationNumber(registrationNumber);
         vehicleRepository.save(vehicle);
         vehicle.setRegistrationNumber("plateNumber");
         vehicleRepository.save(vehicle);
@@ -47,7 +48,7 @@ public class VehicleRepositoryImplTest {
     }
     @Test
     public void VehicleSaved_Updating_aNon_SavedVehicle_countIsOne() {
-        vehicle.setRegistrationNumber(plateNumber);
+        vehicle.setRegistrationNumber(registrationNumber);
         vehicleRepository.save(vehicle);
         Vehicle vehicle2 = new Vehicle();
         vehicle.setRegistrationNumber("plateNumber");
@@ -60,32 +61,32 @@ public class VehicleRepositoryImplTest {
         vehicle.setRegistrationNumber("plateNumber");
         vehicleRepository.save(vehicle);
         Vehicle vehicle2 = new Vehicle();
-        vehicle.setRegistrationNumber(plateNumber);
+        vehicle.setRegistrationNumber(registrationNumber);
         vehicleRepository.save(vehicle2);
-        Vehicle foundVehicle = vehicleRepository.findById(plateNumber);
+        Vehicle foundVehicle = vehicleRepository.findById(registrationNumber);
         assertSame(vehicle, foundVehicle);
     }
     @Test
     public void findNon_ExistingVehicle_ById_() {
         assertEquals(0L, vehicleRepository.count());
-        assertNull(vehicleRepository.findById(plateNumber));
+        assertNull(vehicleRepository.findById(registrationNumber));
     }
     @Test
     public void saveVehicle_checkIfvehicleExistById_() {
         assertEquals(0L, vehicleRepository.count());
-        vehicle.setRegistrationNumber(plateNumber);
+        vehicle.setRegistrationNumber(registrationNumber);
         vehicleRepository.save(vehicle);
-        assertTrue(vehicleRepository.existsById(plateNumber));
+        assertTrue(vehicleRepository.existsById(registrationNumber));
     }
     @Test
     public void saveVehicle_checkIfVehicleExistByNonExisting_Id() {
-        vehicle.setRegistrationNumber(plateNumber);
+        vehicle.setRegistrationNumber(registrationNumber);
         vehicleRepository.save(vehicle);
         assertFalse(vehicleRepository.existsById("plateNumber"));
     }
     @Test
     public void save2Vehicle_findTheTwoVehicle() {
-        vehicle.setRegistrationNumber(plateNumber);
+        vehicle.setRegistrationNumber(registrationNumber);
         vehicleRepository.save(vehicle);
         Vehicle vehicle2 = new Vehicle();
         vehicle.setRegistrationNumber("plateNumber");
@@ -95,7 +96,7 @@ public class VehicleRepositoryImplTest {
     }
     @Test
     public void save2Vehicle_DeleteOneVehicle() {
-        vehicle.setRegistrationNumber(plateNumber);
+        vehicle.setRegistrationNumber(registrationNumber);
         vehicleRepository.save(vehicle);
         Vehicle vehicle2 = new Vehicle();
         vehicle.setRegistrationNumber("plateNumber");

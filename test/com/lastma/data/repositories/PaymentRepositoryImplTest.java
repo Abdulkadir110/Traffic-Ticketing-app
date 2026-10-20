@@ -34,8 +34,9 @@ class PaymentRepositoryImplTest {
         assertEquals(2L, paymentRepository.count());
     }
     @Test
-    public void save_nullPayment_throwsException() {
-        assertThrows(IllegalArgumentException.class, () -> paymentRepository.save(null));
+    public void saveNullObject_paymentRepositoryCount_isZero() {
+        paymentRepository.save(null);
+        assertEquals(0L, paymentRepository.count());
     }
     @Test
     public void paymentSaved_canBeUpdated() {

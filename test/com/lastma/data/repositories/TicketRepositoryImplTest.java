@@ -34,8 +34,9 @@ class TicketRepositoryImplTest {
         assertEquals(2L, ticketRepository.count());
     }
     @Test
-    public void save_nullTicket_throwsException(){
-        assertThrows(IllegalArgumentException.class, () -> ticketRepository.save(null));
+    public void save_NullObject_ticketRepositoryCount_isZero() {
+        ticketRepository.save(null);
+        assertEquals(0L, ticketRepository.count());
     }
     @Test
     public void TicketSaved_CanBeUpdated() {

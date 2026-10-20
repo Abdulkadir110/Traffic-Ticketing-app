@@ -5,7 +5,7 @@ import java.util.Date;
 public class Ticket {
     private int id;
     private int ticketNumber;
-    private int vehicleId;
+    private String vehicleRegistrationNumber;
     private int offenceId;
     private Date incidentDateTime;
     private String location;
@@ -30,12 +30,12 @@ public class Ticket {
         this.ticketNumber = ticketNumber;
     }
 
-    public int getVehicleId() {
-        return vehicleId;
+    public String getVehicleRegistrationNumber() {
+        return vehicleRegistrationNumber;
     }
 
-    public void setVehicleId(int vehicleId) {
-        this.vehicleId = vehicleId;
+    public void setVehicleRegistrationNumber(String vehicleRegistrationNumber) {
+        this.vehicleRegistrationNumber = vehicleRegistrationNumber;
     }
 
     public int getOffenceId() {

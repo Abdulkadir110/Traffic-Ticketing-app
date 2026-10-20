@@ -1,7 +1,7 @@
 package com.lastma.utils.Mappers;
 
 import com.lastma.data.models.Vehicle;
-import com.lastma.dtos.reponses.FindVehicleResponses;
+import com.lastma.dtos.reponses.RegisterVehicleResponse;
 import com.lastma.dtos.requests.RegisterVehicleRequest;
 
 public class VehicleServicesMappers {
@@ -14,8 +14,8 @@ public class VehicleServicesMappers {
         vehicle.setDriverId(request.getDriverId());
         return vehicle;
     }
-    public static FindVehicleResponses mapFrom(Vehicle vehicle){
-        FindVehicleResponses response = new FindVehicleResponses();
+    public static RegisterVehicleResponse mapFrom(Vehicle vehicle){
+        RegisterVehicleResponse response = new RegisterVehicleResponse();
         response.setColor(vehicle.getColor());
         response.setModel(vehicle.getModel());
         response.setMake(vehicle.getMake());
