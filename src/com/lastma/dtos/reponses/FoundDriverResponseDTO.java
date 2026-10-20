@@ -1,9 +1,18 @@
 package com.lastma.dtos.reponses;
 
-public class FindDriverResponses {
+public class FoundDriverResponseDTO {
+    private int id;
     private String fullName;
     private String email;
     private String phoneNumber;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getFullName() {
         return fullName;

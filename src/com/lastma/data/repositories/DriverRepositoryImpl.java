@@ -15,7 +15,7 @@ public class DriverRepositoryImpl implements DriverRepository{
 
     @Override
     public Driver save(Driver driver) {
-        validate(driver);
+        if(driver == null) return null;
         if (existsById(driver.getId())) {
             update(driver);
             return driver;
@@ -59,17 +59,6 @@ public class DriverRepositoryImpl implements DriverRepository{
             }
         }
         return null;
-    }
-    private Driver findDriver(Driver driver){
-        for(Driver eachDriver : drivers){
-            if(driver.equals(eachDriver)){
-                return eachDriver;
-            }
-        }
-        return null;
-    }
-    private void validate(Driver driver){
-        if(driver == null) throw new IllegalArgumentException("The entity is null");
     }
     private void update(Driver driver) {
         drivers.set(drivers.indexOf(driver), driver);

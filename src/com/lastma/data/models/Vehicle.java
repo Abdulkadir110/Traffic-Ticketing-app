@@ -1,10 +1,8 @@
 package com.lastma.data.models;
 
-import java.time.Year;
-
 public class Vehicle {
     private int id;
-    private String plateNumber;
+    private String registrationNumber;
     private String make;
     private String model;
     private String color;
@@ -18,12 +16,12 @@ public class Vehicle {
         this.id = id;
     }
 
-    public String getPlateNumber() {
-        return plateNumber;
+    public String getRegistrationNumber() {
+        return registrationNumber;
     }
 
-    public void setPlateNumber(String plateNumber) {
-        this.plateNumber = plateNumber;
+    public void setRegistrationNumber(String registrationNumber) {
+        this.registrationNumber = registrationNumber;
     }
 
     public String getMake() {

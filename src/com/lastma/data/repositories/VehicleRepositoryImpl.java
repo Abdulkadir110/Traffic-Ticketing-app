@@ -1,8 +1,5 @@
 package com.lastma.data.repositories;
 
-import com.lastma.data.models.Driver;
-import com.lastma.data.models.Officer;
-import com.lastma.data.models.Ticket;
 import com.lastma.data.models.Vehicle;
 
 import java.util.ArrayList;
@@ -19,7 +16,7 @@ public class VehicleRepositoryImpl implements VehicleRepository {
     @Override
     public Vehicle save(Vehicle vehicle) {
         validate(vehicle);
-        if (existsById(vehicle.getPlateNumber())) {
+        if (existsById(vehicle.getRegistrationNumber())) {
             update(vehicle);
             return vehicle;
         }
@@ -30,7 +27,7 @@ public class VehicleRepositoryImpl implements VehicleRepository {
     @Override
     public Vehicle findById(String plateNumber) {
         for(Vehicle vehicle : vehicles){
-            if(vehicle.getPlateNumber().equals(plateNumber)){
+            if(vehicle.getRegistrationNumber().equals(plateNumber)){
                 return vehicle;
             }
         }

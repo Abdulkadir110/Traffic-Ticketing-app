@@ -10,6 +10,10 @@ public class Offence {
     private String additionalPenaltyDescription;
     private boolean active;
 
+    public Offence(ViolationType violationType) {
+        this.type = violationType;
+    }
+
     public int getId() {
         return id;
     }

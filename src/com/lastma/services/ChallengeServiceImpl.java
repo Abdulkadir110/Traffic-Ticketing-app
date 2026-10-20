@@ -1,4 +1,4 @@
 package com.lastma.services;
 
-public class ChallengeServiceImpl {
+public class ChallengeServiceImpl implements  ChallengeService {
 }

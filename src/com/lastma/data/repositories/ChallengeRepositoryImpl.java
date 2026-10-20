@@ -16,8 +16,7 @@ public class ChallengeRepositoryImpl implements  ChallengeRepository {
 
     @Override
     public Challenge save(Challenge challenge) {
-        validate(challenge);
-
+        if(challenge == null) return null;
         if (existsById(challenge.getId())) {
             update(challenge);
             return challenge;
@@ -65,13 +64,6 @@ public class ChallengeRepositoryImpl implements  ChallengeRepository {
 
         return null;
     }
-
-    private void validate(Challenge challenge) {
-        if (challenge == null) {
-            throw new IllegalArgumentException("The entity is null");
-        }
-    }
-
     private void update(Challenge challenge) {
         challenges.set(challenges.indexOf(challenge), challenge);
     }

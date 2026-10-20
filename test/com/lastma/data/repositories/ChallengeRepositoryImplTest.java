@@ -34,11 +34,6 @@ class ChallengeRepositoryImplTest {
         challengeRepository.save(challenge2);
         assertEquals(2L, challengeRepository.count());
     }
-
-    @Test
-    public void save_nullChallenge_throwsException() {
-        assertThrows(IllegalArgumentException.class, () -> challengeRepository.save(null));
-    }
     @Test
     public void challengeSaved_canBeUpdated() {
         challenge.setReason("reason");
@@ -110,4 +105,12 @@ class ChallengeRepositoryImplTest {
         challengeRepository.deleteById(2);
         assertEquals(1L, challengeRepository.count());
     }
+    @Test
+    public void nullChallenge_cantBeSaved_returnsNull(){
+        assertEquals(0L, challengeRepository.count());
+        Challenge savedChallenge = challengeRepository.save(null);
+        assertEquals(0L, challengeRepository.count());
+        assertNull(savedChallenge);
+    }
+
 }

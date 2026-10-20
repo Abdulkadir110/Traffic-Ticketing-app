@@ -19,17 +19,17 @@ public class VehicleRepositoryImplTest {
     @Test
     public void saveVehicle_vehicleRepositoryCount_isOne() {
         assertEquals(0L, vehicleRepository.count());
-        vehicle.setPlateNumber(plateNumber);
+        vehicle.setRegistrationNumber(plateNumber);
         vehicleRepository.save(vehicle);
         assertEquals(1L, vehicleRepository.count());
     }
     @Test
     public void saveTwoVehicle_vehicleRepositoryCount_isTwo() {
         assertEquals(0L, vehicleRepository.count());
-        vehicle.setPlateNumber(plateNumber);
+        vehicle.setRegistrationNumber(plateNumber);
         vehicleRepository.save(vehicle);
         Vehicle vehicle2 = new Vehicle();
-        vehicle.setPlateNumber("plateNumber");
+        vehicle.setRegistrationNumber("plateNumber");
         vehicleRepository.save(vehicle2);
         assertEquals(2L, vehicleRepository.count());
     }
@@ -39,28 +39,28 @@ public class VehicleRepositoryImplTest {
     }
     @Test
     public void VehicleSaved_CanBeUpdated() {
-        vehicle.setPlateNumber(plateNumber);
+        vehicle.setRegistrationNumber(plateNumber);
         vehicleRepository.save(vehicle);
-        vehicle.setPlateNumber("plateNumber");
+        vehicle.setRegistrationNumber("plateNumber");
         vehicleRepository.save(vehicle);
         assertEquals(1L, vehicleRepository.count());
     }
     @Test
     public void VehicleSaved_Updating_aNon_SavedVehicle_countIsOne() {
-        vehicle.setPlateNumber(plateNumber);
+        vehicle.setRegistrationNumber(plateNumber);
         vehicleRepository.save(vehicle);
         Vehicle vehicle2 = new Vehicle();
-        vehicle.setPlateNumber("plateNumber");
+        vehicle.setRegistrationNumber("plateNumber");
         assertEquals(1L, vehicleRepository.count());
     }
     @Test
     public void saveTwoVehicle_findVehicleById_() {
         assertEquals(0L, vehicleRepository.count());
         Vehicle vehicle = new Vehicle();
-        vehicle.setPlateNumber("plateNumber");
+        vehicle.setRegistrationNumber("plateNumber");
         vehicleRepository.save(vehicle);
         Vehicle vehicle2 = new Vehicle();
-        vehicle.setPlateNumber(plateNumber);
+        vehicle.setRegistrationNumber(plateNumber);
         vehicleRepository.save(vehicle2);
         Vehicle foundVehicle = vehicleRepository.findById(plateNumber);
         assertSame(vehicle, foundVehicle);
@@ -73,32 +73,32 @@ public class VehicleRepositoryImplTest {
     @Test
     public void saveVehicle_checkIfvehicleExistById_() {
         assertEquals(0L, vehicleRepository.count());
-        vehicle.setPlateNumber(plateNumber);
+        vehicle.setRegistrationNumber(plateNumber);
         vehicleRepository.save(vehicle);
         assertTrue(vehicleRepository.existsById(plateNumber));
     }
     @Test
     public void saveVehicle_checkIfVehicleExistByNonExisting_Id() {
-        vehicle.setPlateNumber(plateNumber);
+        vehicle.setRegistrationNumber(plateNumber);
         vehicleRepository.save(vehicle);
         assertFalse(vehicleRepository.existsById("plateNumber"));
     }
     @Test
     public void save2Vehicle_findTheTwoVehicle() {
-        vehicle.setPlateNumber(plateNumber);
+        vehicle.setRegistrationNumber(plateNumber);
         vehicleRepository.save(vehicle);
         Vehicle vehicle2 = new Vehicle();
-        vehicle.setPlateNumber("plateNumber");
+        vehicle.setRegistrationNumber("plateNumber");
         vehicleRepository.save(vehicle2);
         assertEquals(2L, vehicleRepository.count());
         assertEquals(2,  vehicleRepository.findAll().size());
     }
     @Test
     public void save2Vehicle_DeleteOneVehicle() {
-        vehicle.setPlateNumber(plateNumber);
+        vehicle.setRegistrationNumber(plateNumber);
         vehicleRepository.save(vehicle);
         Vehicle vehicle2 = new Vehicle();
-        vehicle.setPlateNumber("plateNumber");
+        vehicle.setRegistrationNumber("plateNumber");
         vehicleRepository.save(vehicle2);
         vehicleRepository.delete("plateNumber");
         assertEquals(1L, vehicleRepository.count());

@@ -3,36 +3,31 @@ package com.lastma.services;
 import com.lastma.data.models.Driver;
 import com.lastma.data.repositories.DriverRepository;
 import com.lastma.data.repositories.DriverRepositoryImpl;
-import com.lastma.dtos.reponses.FindDriverResponses;
+import com.lastma.dtos.reponses.FoundDriverResponseDTO;
+import com.lastma.dtos.reponses.RegisterDriverResponseDTO;
+import com.lastma.dtos.requests.RegisterDriverRequestDTO;
+
+import static com.lastma.utils.Mappers.DriverServicesMappers.*;
 
 
 public class DriverServiceImpl implements DriverService{
     private DriverRepository driverRepository = new DriverRepositoryImpl();
 
     @Override
-    public FindDriverResponses register(String fullName, String email, String phoneNumber, String password) {
-        Driver driver = new Driver();
-        driver.setFullName(fullName);
-        driver.setEmail(email);
-        driver.setPhoneNumber(phoneNumber);
-        Driver registeredDriver = driverRepository.save(driver);
-        FindDriverResponses response = new FindDriverResponses();
-        response.setFullName(registeredDriver.getFullName());
-        response.setEmail(registeredDriver.getEmail());
-        response.setPhoneNumber(registeredDriver.getPhoneNumber());
-
-        return response;
+    public RegisterDriverResponseDTO register(RegisterDriverRequestDTO request) {
+        Driver registerDriver = driverRepository.save(mapRegisterDriver(request));
+        return mapRegisteredDriver(registerDriver);
     }
+
+    private void validate(Driver driver) {
+        if (driver == null)throw new IllegalArgumentException("Driver not found");
+    }
+
 
     @Override
-    public FindDriverResponses findById(int id) {
+    public FoundDriverResponseDTO findDriverById(int id) {
         Driver foundDriver = driverRepository.findById(id);
-        FindDriverResponses response = new FindDriverResponses();
-        response.setFullName(foundDriver.getFullName());
-        response.setEmail(foundDriver.getEmail());
-        response.setPhoneNumber(foundDriver.getPhoneNumber());
-        return response;
+        validate(foundDriver);
+        return mapFoundDriver(foundDriver);
     }
-
-
 }

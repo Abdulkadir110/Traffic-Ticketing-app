@@ -24,12 +24,19 @@ public enum ViolationType {
     DRIVING_UNDER_INFLUENCE(3, 100_000),
     TRAFFIC_LIGHT_VIOLATION(2, 10_000),
 
-
     ;
+    private int point;
+    private double firsTimeOffenderAmount;
+    private double secondTimeOffenderAmount;
     ViolationType(int point, double firstTimeOffenderAmount, double subsequentOffenderAmount) {
-
+            this.point = point;
+            this.firsTimeOffenderAmount = firstTimeOffenderAmount;
+            this.secondTimeOffenderAmount = subsequentOffenderAmount;
     }
     ViolationType(int point, double firstTimeOffenderAmount) {
-
+        this.point = point;
+        this.firsTimeOffenderAmount = firstTimeOffenderAmount;
     }
+
+
 }

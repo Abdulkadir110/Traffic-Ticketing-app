@@ -36,8 +36,11 @@ class OfficerRepositoryImplTest {
         assertEquals(2L, officerRepository.count());
     }
     @Test
-    public void save_nullOfficer_throwsException(){
-        assertThrows(IllegalArgumentException.class, () -> officerRepository.save(null));
+    public void nullOfficer_cantBeSaved_returnsNull(){
+        assertEquals(0L, officerRepository.count());
+        Officer savedOfficer = officerRepository.save(null);
+        assertEquals(0L, officerRepository.count());
+        assertNull(savedOfficer);
     }
     @Test
     public void OfficerSaved_CanBeUpdated() {

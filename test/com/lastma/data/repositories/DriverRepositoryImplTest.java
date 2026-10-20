@@ -112,8 +112,11 @@ public class DriverRepositoryImplTest {
         assertEquals(2L, driverRepository.count());
     }
     @Test
-    public void saveA_null_throwsException(){
-        assertThrows(IllegalArgumentException.class,()->driverRepository.save(null));
+    public void nullDriver_cantBeSaved_returnsNull(){
+        assertEquals(0L, driverRepository.count());
+        Driver savedDriver = driverRepository.save(null);
+        assertEquals(0L, driverRepository.count());
+        assertNull(savedDriver);
     }
     @Test
     public void find_an_Entity_with_WrongId_Null_Entity(){

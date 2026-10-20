@@ -16,7 +16,7 @@ public class OffenceRepositoryImpl implements OffenceRepository {
 
     @Override
     public Offence save(Offence offence) {
-        validate(offence);
+        if(offence == null) return null;
         if (existsById(offence.getId())) {
             update(offence);
             return offence;
@@ -61,9 +61,6 @@ public class OffenceRepositoryImpl implements OffenceRepository {
             }
         }
         return null;
-    }
-    private void validate(Offence offence){
-        if(offence == null) throw new IllegalArgumentException("The entity is null");
     }
     private void update(Offence offence) {
         offences.set(offences.indexOf(offence), offence);
