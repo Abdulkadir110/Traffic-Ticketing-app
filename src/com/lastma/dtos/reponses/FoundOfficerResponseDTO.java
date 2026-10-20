@@ -1,9 +1,9 @@
 package com.lastma.dtos.reponses;
 
-public class FindOfficerResponses {
+public class FoundOfficerResponseDTO {
     private String fullName;
     private String email;
-
+    private int id;
 
     public String getFullName() {
         return fullName;
@@ -21,4 +21,11 @@ public class FindOfficerResponses {
         this.email = email;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

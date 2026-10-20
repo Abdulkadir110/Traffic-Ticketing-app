@@ -1,10 +1,12 @@
 package com.lastma.services;
 
-import com.lastma.dtos.reponses.FindOfficerResponses;
+import com.lastma.dtos.reponses.FoundOfficerResponseDTO;
+import com.lastma.dtos.reponses.RegisterOfficerResponseDTO;
 import com.lastma.dtos.requests.RegisterOfficerRequest;
 
 public interface OfficerService {
-    FindOfficerResponses register(RegisterOfficerRequest request);
+    RegisterOfficerResponseDTO register(RegisterOfficerRequest request);
 
 
+    FoundOfficerResponseDTO findOfficerById(int id);
 }

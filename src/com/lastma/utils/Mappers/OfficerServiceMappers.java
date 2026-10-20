@@ -1,7 +1,8 @@
 package com.lastma.utils.Mappers;
 
 import com.lastma.data.models.Officer;
-import com.lastma.dtos.reponses.FindOfficerResponses;
+import com.lastma.dtos.reponses.FoundOfficerResponseDTO;
+import com.lastma.dtos.reponses.RegisterOfficerResponseDTO;
 import com.lastma.dtos.requests.RegisterOfficerRequest;
 
 public class OfficerServiceMappers {
@@ -13,10 +14,19 @@ public class OfficerServiceMappers {
         officer.setFullName(request.getFullName());
         return officer;
     }
-    public static FindOfficerResponses map(Officer officer) {
-        FindOfficerResponses response = new FindOfficerResponses();
+    public static RegisterOfficerResponseDTO map(Officer officer) {
+        RegisterOfficerResponseDTO response = new RegisterOfficerResponseDTO();
         response.setEmail(officer.getEmail());
         response.setFullName(officer.getFullName());
+        response.setId(officer.getId());
+        return response;
+    }
+
+    public static FoundOfficerResponseDTO mapFound(Officer officer) {
+        FoundOfficerResponseDTO response = new FoundOfficerResponseDTO();
+        response.setEmail(officer.getEmail());
+        response.setFullName(officer.getFullName());
+        response.setId(officer.getId());
         return response;
     }
 }
