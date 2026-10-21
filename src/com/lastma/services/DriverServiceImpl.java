@@ -5,6 +5,7 @@ import com.lastma.data.repositories.DriverRepository;
 import com.lastma.data.repositories.DriverRepositoryImpl;
 import com.lastma.dtos.reponses.FoundDriverResponseDTO;
 import com.lastma.dtos.reponses.RegisterDriverResponseDTO;
+import com.lastma.dtos.requests.FindDriverRequest;
 import com.lastma.dtos.requests.RegisterDriverRequestDTO;
 
 import static com.lastma.utils.Mappers.DriverServicesMappers.*;
@@ -16,6 +17,7 @@ public class DriverServiceImpl implements DriverService{
     @Override
     public RegisterDriverResponseDTO register(RegisterDriverRequestDTO request) {
         Driver registerDriver = driverRepository.save(mapRegisterDriver(request));
+        validate(registerDriver);
         return mapRegisteredDriver(registerDriver);
     }
 
@@ -25,8 +27,8 @@ public class DriverServiceImpl implements DriverService{
 
 
     @Override
-    public FoundDriverResponseDTO findDriverById(int id) {
-        Driver foundDriver = driverRepository.findById(id);
+    public FoundDriverResponseDTO findDriverById(FindDriverRequest request) {
+        Driver foundDriver = driverRepository.findById(request.getId());
         validate(foundDriver);
         return mapFoundDriver(foundDriver);
     }

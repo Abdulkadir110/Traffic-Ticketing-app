@@ -4,6 +4,7 @@ import com.lastma.data.repositories.DriverRepository;
 import com.lastma.data.repositories.DriverRepositoryImpl;
 import com.lastma.dtos.reponses.FoundDriverResponseDTO;
 import com.lastma.dtos.reponses.RegisterDriverResponseDTO;
+import com.lastma.dtos.requests.FindDriverRequest;
 import com.lastma.dtos.requests.RegisterDriverRequestDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -70,14 +71,18 @@ class DriverServiceImplTest {
         request.setFullName("Abdulkadir");
         request.setPassword(correctPassword);
         RegisterDriverResponseDTO registeredDriver = driverService.register(request);
-        FoundDriverResponseDTO foundDriver = driverService.findDriverById(1);
+        FindDriverRequest driverRequest = new FindDriverRequest();
+        driverRequest.setId(registeredDriver.getId());
+        FoundDriverResponseDTO foundDriver = driverService.findDriverById(driverRequest);
         assertEquals(registeredDriver.getFullName(), foundDriver.getFullName());
         assertEquals(registeredDriver.getEmail(), foundDriver.getEmail());
         assertEquals(registeredDriver.getPhoneNumber(), foundDriver.getPhoneNumber());
     }
     @Test
     public void findNon_ExistingDriver_throwsException() {
-        assertThrows(IllegalArgumentException.class, ()-> driverService.findDriverById(1));
+        FindDriverRequest driverRequest = new FindDriverRequest();
+        driverRequest.setId(1);
+        assertThrows(IllegalArgumentException.class, ()-> driverService.findDriverById(driverRequest));
         assertEquals(0L, driverRepository.count());
     }
 

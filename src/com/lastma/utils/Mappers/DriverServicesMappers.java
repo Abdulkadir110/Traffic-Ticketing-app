@@ -19,6 +19,7 @@ public class DriverServicesMappers {
         response.setFullName(driver.getFullName());
         response.setEmail(driver.getEmail());
         response.setPhoneNumber(driver.getPhoneNumber());
+        response.setId(driver.getId());
         return response;
     }
     public static FoundDriverResponseDTO mapFoundDriver(Driver driver) {
